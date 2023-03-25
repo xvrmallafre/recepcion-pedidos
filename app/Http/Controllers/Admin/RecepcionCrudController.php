@@ -103,17 +103,20 @@ class RecepcionCrudController extends CrudController
             ->tab('Datos personales')
             ->wrapperAttributes(['class' => 'form-group col-md-6']);
         CRUD::field('email')
-            ->validationRules('min:4|max:200|email')
+            ->validationRules('max:200|email')
             ->label('Correo electrónico')
             ->tab('Datos personales')
-            ->wrapperAttributes(['class' => 'form-group col-md-9']);
+            ->wrapperAttributes(['class' => 'form-group col-md-8']);
         CRUD::field('phone')
-            ->validationRules('min:4|max:50')
+            ->validationRules('max:50')
             ->label('Teléfono')
             ->wrapperAttributes(['class' => 'form-group col-md-3'])
             ->tab('Datos personales');
+        CRUD::field('send_emails')
+            ->label('Enviar correos?')
+            ->tab('Datos personales');
         CRUD::field('address')
-            ->validationRules('min:4|max:255')
+            ->validationRules('max:255')
             ->label('Dirección')
             ->tab('Datos personales');
         CRUD::field('has_material')
