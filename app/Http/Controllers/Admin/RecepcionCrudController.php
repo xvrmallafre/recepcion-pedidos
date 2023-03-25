@@ -103,7 +103,7 @@ class RecepcionCrudController extends CrudController
             ->tab('Datos personales')
             ->wrapperAttributes(['class' => 'form-group col-md-6']);
         CRUD::field('email')
-            ->validationRules('max:200|email')
+            ->validationRules('max:200')
             ->label('Correo electrónico')
             ->tab('Datos personales')
             ->wrapperAttributes(['class' => 'form-group col-md-9']);
