@@ -1,0 +1,326 @@
+@php
+    $fecha = $recepcion->created_at->format('d-m-Y');
+    $hora = $recepcion->created_at->format('H:i');
+    $hasMaterial = $recepcion->has_material;
+@endphp
+
+<head>
+    <style>
+        .main {
+            width: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .header {
+            display: flex;
+            margin-bottom: 10px;
+            background-color: lightgrey;
+            padding: 10px;
+            height: 63px;
+        }
+
+        .logo {
+            width: 75px;
+            height: 63px;
+            float: left;
+            margin-right: 30px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .title {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            float: left;
+            padding-top: 8px;
+        }
+
+        .title h1 {
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+
+        .info {
+            display: flex;
+            float: right;
+            margin-top: 15px;
+            text-align: right;
+        }
+
+        .info p {
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .content {
+            display: flex;
+            margin-top: -10px;
+        }
+
+        .row {
+            display: flex;
+            min-width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            display: flex;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            font-size: 12px;
+            font-weight: bold;
+            border: none;
+            border-bottom: 1px solid black;
+            outline: none;
+        }
+
+        .form-group textarea {
+            font-size: 12px;
+            font-weight: bold;
+            border: 1px solid black;
+            outline: none;
+            border-radius: 5px;
+            min-height: 30px;
+        }
+
+        .codigo-trabajo {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .codigo-trabajo p {
+            font-size: 12px;
+            font-weight: unset;
+        }
+
+        label {
+            width: 100%;
+        }
+
+        input {
+            width: 100%;
+        }
+
+        .name {
+            width: 50%;
+            float: left;
+        }
+
+        .phone {
+            width: 50%;
+            float: left;
+        }
+
+        .address {
+            width: 100%;
+        }
+
+        .has_material {
+            width: 20%;
+            float: left;
+        }
+
+        .material {
+            width: 80%;
+            float: left;
+        }
+
+        .desc {
+            width: 100%;
+        }
+
+        .obs {
+            width: 100%;
+        }
+
+        .content-wrapper {
+            margin-top: -10px;
+        }
+
+        .first {
+            margin-bottom: 120px;
+        }
+
+        input[type="text"] {
+            font-size: 12px;
+            font-weight: unset;
+        }
+
+        textarea {
+            font-size: 12px;
+            font-weight: unset !important;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .ct {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="main first">
+    <div class="header">
+        <div class="logo">
+            <img src="{{ public_path('img/logo-lt.jpg') }}" alt="Logo">
+        </div>
+        <div class="title">
+            <h1>RECEPCIÓN DE TRABAJO</h1>
+        </div>
+        <div class="info">
+            <div class="fecha">
+                <p>{{ $fecha }}</p>
+            </div>
+            <div class="hora">
+                <p>{{ $hora }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="row">
+            <div class="codigo-trabajo">
+                <p><span class="ct">Código de trabajo:</span> {{ $recepcion->code_id }}</p>
+            </div>
+        </div>
+        <div class="row content-wrapper">
+            <div class="name">
+                <div class="form-group">
+                    <label for="name">Nombre completo</label>
+                    <input type="text" value="{{ $recepcion->full_name }}">
+                </div>
+            </div>
+            <div class="phone">
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="text" value="{{ $recepcion->phone }}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="address">
+                <div class="form-group">
+                    <label for="address">Dirección</label>
+                    <input type="text" value="{{ $recepcion->address }}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="has_material">
+                <div class="form-group">
+                    <label for="has_material">¿Deja material?</label>
+                    <input type="text" value="{{ $hasMaterial ? 'Si' : 'No' }}">
+                </div>
+            </div>
+            <div class="material">
+                <div class="form-group">
+                    <label for="material">Material</label>
+                    <input type="text" value="{{ $recepcion->material }}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="desc">
+                <div class="form-group">
+                    <label for="description">Descripción de la faena</label>
+                    <textarea name="description" id="description">{{ $recepcion->description }}</textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="obs">
+                <div class="form-group">
+                    <label for="observations">Observaciones</label>
+                    <textarea name="observations" id="observations">{{ $recepcion->observations }}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main">
+    <div class="header">
+        <div class="logo">
+            <img src="{{ public_path('img/logo-lt.jpg') }}" alt="Logo">
+        </div>
+        <div class="title">
+            <h1>RECEPCIÓN DE TRABAJO</h1>
+        </div>
+        <div class="info">
+            <div class="fecha">
+                <p>{{ $fecha }}</p>
+            </div>
+            <div class="hora">
+                <p>{{ $hora }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="row">
+            <div class="codigo-trabajo">
+                <p>Código de trabajo: {{ $recepcion->code_id }}</p>
+            </div>
+        </div>
+        <div class="row content-wrapper">
+            <div class="name">
+                <div class="form-group">
+                    <label for="name">Nombre completo</label>
+                    <input type="text" value="{{ $recepcion->full_name }}">
+                </div>
+            </div>
+            <div class="phone">
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="text" value="{{ $recepcion->phone }}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="address">
+                <div class="form-group">
+                    <label for="address">Dirección</label>
+                    <input type="text" value="{{ $recepcion->address }}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="has_material">
+                <div class="form-group">
+                    <label for="has_material">¿Deja material?</label>
+                    <input type="text" value="{{ $hasMaterial ? 'Si' : 'No' }}">
+                </div>
+            </div>
+            <div class="material">
+                <div class="form-group">
+                    <label for="material">Material</label>
+                    <input type="text" value="{{ $recepcion->material }}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="desc">
+                <div class="form-group">
+                    <label for="description">Descripción de la faena</label>
+                    <textarea name="description" id="description">{{ $recepcion->description }}</textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="obs">
+                <div class="form-group">
+                    <label for="observations">Observaciones</label>
+                    <textarea name="observations" id="observations">{{ $recepcion->observations }}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
