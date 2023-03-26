@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Recepcion;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 /**
@@ -15,16 +16,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class RecepcionCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
-    /**
-     * Configure the CrudPanel object. Apply settings to all operations.
-     * 
-     * @return void
-     */
     public function setup()
     {
         CRUD::setModel(Recepcion::class);
@@ -32,18 +28,11 @@ class RecepcionCrudController extends CrudController
         CRUD::setEntityNameStrings('recepción', 'recepciones');
     }
 
-    /**
-     * Define what happens when the List operation is loaded.
-     * 
-     * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
-     * @return void
-     */
     protected function setupListOperation()
     {
         $this->crud->addColumn([
             'name' => 'code_id',
             'label' => 'Código',
-
         ]);
         $this->crud->addColumn([
             'name' => 'full_name',
@@ -76,22 +65,12 @@ class RecepcionCrudController extends CrudController
             'createPdf',
             'beginning'
         );
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
     }
 
-    /**
-     * Define what happens when the Create operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     * @return void
-     */
-    protected function setupCreateOperation()
+    protected function commonOperations()
     {
+        Widget::add()->type('script')->content('assets/js/recepcion-form.js');
+
         CRUD::field('name')
             ->validationRules('required|min:2|max:200')
             ->label('Nombre')
@@ -142,25 +121,27 @@ class RecepcionCrudController extends CrudController
                 'done' => 'Hecho',
                 'delivered' => 'Entregado',
                 'rejected' => 'Rechazado',
-            ])
-            ->tab('Estado');
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
+            ]);
     }
 
-    /**
-     * Define what happens when the Update operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     * @return void
-     */
+    protected function setupCreateOperation()
+    {
+        $this->commonOperations();
+        $this->crud->removeSaveActions([
+            'save_and_edit',
+            'save_and_new',
+            'save_and_preview'
+        ]);
+    }
+
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        $this->commonOperations();
+
+        $this->crud->removeSaveActions([
+            'save_and_new',
+            'save_and_preview'
+        ]);
     }
 
     public function generatePdf(string $id)
@@ -168,5 +149,17 @@ class RecepcionCrudController extends CrudController
         $recepcion = Recepcion::find($id);
         $pdf = PDF::loadView('pdf.recepcion', compact('recepcion'))->setPaper('a4');
         return $pdf->stream('recepcion-'.$recepcion->code_id.'.pdf');
+    }
+
+    public function store()
+    {
+        $response = $this->traitStore();
+        $isEdit = $this->crud->getRequest()->has('id');
+
+        if (!$isEdit) {
+            session()->flash('recepcion_id', $this->crud->entry->id);
+        }
+
+        return $response;
     }
 }

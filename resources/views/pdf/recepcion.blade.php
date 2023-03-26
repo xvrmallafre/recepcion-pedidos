@@ -1,7 +1,12 @@
 @php
     $fecha = $recepcion->created_at->format('d-m-Y');
     $hora = $recepcion->created_at->format('H:i');
-    $hasMaterial = $recepcion->has_material;
+    $hasMaterial = $recepcion->has_material ? 'Si' : 'No';
+    $phone = $recepcion->phone ? $recepcion->phone : ' ';
+    $address = $recepcion->address ? $recepcion->address : ' ';
+    $material = $recepcion->material ? $recepcion->material : ' ';
+    $description = $recepcion->description ? $recepcion->description : ' ';
+    $observations = $recepcion->observations ? $recepcion->observations : ' ';
 @endphp
 
 <head>
@@ -166,6 +171,10 @@
         .ct {
             font-weight: bold;
         }
+
+        input, textarea {
+            min-height: 20px;
+        }
     </style>
 </head>
 <body>
@@ -175,7 +184,7 @@
             <img src="{{ public_path('img/logo-lt.jpg') }}" alt="Logo">
         </div>
         <div class="title">
-            <h1>RECEPCIÓN DE TRABAJO</h1>
+            <h1>RECEPCIÓ DE FEINA</h1>
         </div>
         <div class="info">
             <div class="fecha">
@@ -189,58 +198,58 @@
     <div class="content">
         <div class="row">
             <div class="codigo-trabajo">
-                <p><span class="ct">Código de trabajo:</span> {{ $recepcion->code_id }}</p>
+                <p><span class="ct">Codi de treball:</span> {{ $recepcion->code_id }}</p>
             </div>
         </div>
         <div class="row content-wrapper">
             <div class="name">
                 <div class="form-group">
-                    <label for="name">Nombre completo</label>
+                    <label for="name">Nom complet</label>
                     <input type="text" value="{{ $recepcion->full_name }}">
                 </div>
             </div>
             <div class="phone">
                 <div class="form-group">
-                    <label for="phone">Teléfono</label>
-                    <input type="text" value="{{ $recepcion->phone }}">
+                    <label for="phone">Telèfon</label>
+                    <input type="text" value="{{ $phone }}">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="address">
                 <div class="form-group">
-                    <label for="address">Dirección</label>
-                    <input type="text" value="{{ $recepcion->address }}">
+                    <label for="address">Adreça</label>
+                    <input type="text" value="{{ $address }}">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="has_material">
                 <div class="form-group">
-                    <label for="has_material">¿Deja material?</label>
-                    <input type="text" value="{{ $hasMaterial ? 'Si' : 'No' }}">
+                    <label for="has_material">¿Deixa material?</label>
+                    <input type="text" value="{{ $hasMaterial }}">
                 </div>
             </div>
             <div class="material">
                 <div class="form-group">
                     <label for="material">Material</label>
-                    <input type="text" value="{{ $recepcion->material }}">
+                    <input type="text" value="{{ $material }}">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="desc">
                 <div class="form-group">
-                    <label for="description">Descripción de la faena</label>
-                    <textarea name="description" id="description">{{ $recepcion->description }}</textarea>
+                    <label for="description">Descripció de la feina</label>
+                    <textarea name="description" id="description">{{ $description }}</textarea>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="obs">
                 <div class="form-group">
-                    <label for="observations">Observaciones</label>
-                    <textarea name="observations" id="observations">{{ $recepcion->observations }}</textarea>
+                    <label for="observations">Observacions</label>
+                    <textarea name="observations" id="observations">{{ $observations }}</textarea>
                 </div>
             </div>
         </div>
@@ -252,7 +261,7 @@
             <img src="{{ public_path('img/logo-lt.jpg') }}" alt="Logo">
         </div>
         <div class="title">
-            <h1>RECEPCIÓN DE TRABAJO</h1>
+            <h1>RECEPCIÓ DE FEINA</h1>
         </div>
         <div class="info">
             <div class="fecha">
@@ -266,58 +275,58 @@
     <div class="content">
         <div class="row">
             <div class="codigo-trabajo">
-                <p>Código de trabajo: {{ $recepcion->code_id }}</p>
+                <p><span class="ct">Codi de treball:</span> {{ $recepcion->code_id }}</p>
             </div>
         </div>
         <div class="row content-wrapper">
             <div class="name">
                 <div class="form-group">
-                    <label for="name">Nombre completo</label>
+                    <label for="name">Nom complet</label>
                     <input type="text" value="{{ $recepcion->full_name }}">
                 </div>
             </div>
             <div class="phone">
                 <div class="form-group">
-                    <label for="phone">Teléfono</label>
-                    <input type="text" value="{{ $recepcion->phone }}">
+                    <label for="phone">Telèfon</label>
+                    <input type="text" value="{{ $phone }}">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="address">
                 <div class="form-group">
-                    <label for="address">Dirección</label>
-                    <input type="text" value="{{ $recepcion->address }}">
+                    <label for="address">Adreça</label>
+                    <input type="text" value="{{ $address }}">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="has_material">
                 <div class="form-group">
-                    <label for="has_material">¿Deja material?</label>
-                    <input type="text" value="{{ $hasMaterial ? 'Si' : 'No' }}">
+                    <label for="has_material">¿Deixa material?</label>
+                    <input type="text" value="{{ $hasMaterial }}">
                 </div>
             </div>
             <div class="material">
                 <div class="form-group">
                     <label for="material">Material</label>
-                    <input type="text" value="{{ $recepcion->material }}">
+                    <input type="text" value="{{ $material }}">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="desc">
                 <div class="form-group">
-                    <label for="description">Descripción de la faena</label>
-                    <textarea name="description" id="description">{{ $recepcion->description }}</textarea>
+                    <label for="description">Descripció de la feina</label>
+                    <textarea name="description" id="description">{{ $description }}</textarea>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="obs">
                 <div class="form-group">
-                    <label for="observations">Observaciones</label>
-                    <textarea name="observations" id="observations">{{ $recepcion->observations }}</textarea>
+                    <label for="observations">Observacions</label>
+                    <textarea name="observations" id="observations">{{ $observations }}</textarea>
                 </div>
             </div>
         </div>

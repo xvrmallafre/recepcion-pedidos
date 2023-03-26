@@ -49,8 +49,7 @@ class Recepcion extends Model
 
     public function getCodeIdAttribute(): string
     {
-        $date = $this->created_at->format('ymd');
-        return $date.sprintf('%06d', $this->attributes['id']);
+        return 'C-' . sprintf('%04d', $this->attributes['id']);
     }
 
     public function getFullNameAttribute(): string
