@@ -26,11 +26,15 @@ class Recepcion extends Model
         'description',
         'observations',
         'status',
+        'send_emails',
+        'code_id',
+        'full_name',
     ];
 
 
     protected $casts = [
         'has_material' => 'boolean',
+        'send_emails' => 'boolean',
     ];
 
     public function getStatusAttribute(): string
@@ -47,14 +51,9 @@ class Recepcion extends Model
         }
     }
 
-    public function getCodeIdAttribute(): string
+    public function getCodeIdAttribute()
     {
-        return 'C-' . sprintf('%04d', $this->attributes['id']);
-    }
-
-    public function getFullNameAttribute(): string
-    {
-        return $this->attributes['name'] . ' ' . $this->attributes['lastname'];
+        return $this->attributes['code_id'] ?? '-';
     }
 
     public function createPdf($crud = false): string

@@ -30,14 +30,8 @@ class RecepcionCrudController extends CrudController
 
     protected function setupListOperation()
     {
-        $this->crud->addColumn([
-            'name' => 'code_id',
-            'label' => 'Código',
-        ]);
-        $this->crud->addColumn([
-            'name' => 'full_name',
-            'label' => 'Nombre completo',
-        ]);
+        CRUD::column('code_id')->label('Código');
+        CRUD::column('full_name')->label('Nombre completo');
         CRUD::column('email')->label('Correo electrónico');
         CRUD::column('phone')->label('Teléfono');
         CRUD::column('status')->label('Estado')->wrapper([
@@ -154,6 +148,12 @@ class RecepcionCrudController extends CrudController
     public function store()
     {
         $response = $this->traitStore();
+        $recepcion = Recepcion::find($this->crud->entry->id);
+
+        $recepcion->code_id = 'C-'.sprintf('%04d', $this->crud->entry->id);
+        $recepcion->full_name = $this->crud->entry->name.' '.$this->crud->entry->lastname;
+        $recepcion->save();
+
         $isEdit = $this->crud->getRequest()->has('id');
 
         if (!$isEdit) {
