@@ -159,7 +159,7 @@
         }
 
         .first {
-            margin-bottom: 75px;
+            margin-bottom: 79px;
         }
 
         input[type="text"] {
