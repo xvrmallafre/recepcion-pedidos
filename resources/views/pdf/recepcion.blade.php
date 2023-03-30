@@ -96,12 +96,16 @@
             border: 1px solid black;
             outline: none;
             border-radius: 5px;
+            min-height: 80px;
+        }
+
+        .form-group #observations {
             min-height: 30px;
         }
 
         .codigo-trabajo {
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 0px;
         }
 
         .codigo-trabajo p {
@@ -115,6 +119,7 @@
 
         input {
             width: 100%;
+            margin-bottom: -5px;
         }
 
         .name {
@@ -154,7 +159,7 @@
         }
 
         .first {
-            margin-bottom: 120px;
+            margin-bottom: 60px;
         }
 
         input[type="text"] {
