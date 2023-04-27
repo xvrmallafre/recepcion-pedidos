@@ -2,11 +2,12 @@
     $fecha = $recepcion->created_at->format('d-m-Y');
     $hora = $recepcion->created_at->format('H:i');
     $hasMaterial = $recepcion->has_material ? 'Si' : 'No';
-    $phone = $recepcion->phone ? $recepcion->phone : ' ';
-    $address = $recepcion->address ? $recepcion->address : ' ';
-    $material = $recepcion->material ? $recepcion->material : ' ';
-    $description = $recepcion->description ? $recepcion->description : ' ';
-    $observations = $recepcion->observations ? $recepcion->observations : ' ';
+    $phone = $recepcion->phone ?? ' ';
+    $address = $recepcion->address ?? ' ';
+    $material = $recepcion->material ?? ' ';
+    $description = $recepcion->description ?? ' ';
+    $observations = $recepcion->observations ?? ' ';
+    $email = $recepcion->email ?? ' ';
 @endphp
 
 <head>
@@ -133,7 +134,13 @@
         }
 
         .address {
-            width: 100%;
+            width: 50%;
+            float: left;
+        }
+
+        .email {
+            width: 50%;
+            float: left;
         }
 
         .has_material {
@@ -180,6 +187,10 @@
         input, textarea {
             min-height: 20px;
         }
+
+        .row.h {
+            height: 40px;
+        }
     </style>
 </head>
 <body>
@@ -206,7 +217,7 @@
                 <p><span class="ct">Codi de treball:</span> {{ $recepcion->code_id }}</p>
             </div>
         </div>
-        <div class="row content-wrapper">
+        <div class="row content-wrapper h">
             <div class="name">
                 <div class="form-group">
                     <label for="name">Nom complet</label>
@@ -220,15 +231,21 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row h">
             <div class="address">
                 <div class="form-group">
                     <label for="address">Adreça</label>
                     <input type="text" value="{{ $address }}">
                 </div>
             </div>
+            <div class="email">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" value="{{ $email }}">
+                </div>
+            </div>
         </div>
-        <div class="row">
+        <div class="row h">
             <div class="has_material">
                 <div class="form-group">
                     <label for="has_material">¿Deixa material?</label>
@@ -283,7 +300,7 @@
                 <p><span class="ct">Codi de treball:</span> {{ $recepcion->code_id }}</p>
             </div>
         </div>
-        <div class="row content-wrapper">
+        <div class="row content-wrapper h">
             <div class="name">
                 <div class="form-group">
                     <label for="name">Nom complet</label>
@@ -297,15 +314,21 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row h">
             <div class="address">
                 <div class="form-group">
                     <label for="address">Adreça</label>
                     <input type="text" value="{{ $address }}">
                 </div>
             </div>
+            <div class="email">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" value="{{ $email }}">
+                </div>
+            </div>
         </div>
-        <div class="row">
+        <div class="row h">
             <div class="has_material">
                 <div class="form-group">
                     <label for="has_material">¿Deixa material?</label>
